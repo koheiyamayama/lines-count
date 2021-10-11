@@ -100,6 +100,10 @@ $ lines-count --level ~
     - 何階層分のディレクトリまで深堀りし、ディレクトリごとに行数を出力する。
   - ~
     - 一番下のディレクトリまで深堀りし、ディレクトリごとに行数を出力する。
+- --excludes /path/to/file,/path/to/directory,...
+  - 出力結果に含めないファイル名、ディレクトリ名をカンマ区切りで渡す。
+- --includes /path/to/file,/path/to/directory,...
+  - 出力結果に含めるファイル名、ディレクトリ名をカンマ区切りで渡す。
 
 
 # development progress
