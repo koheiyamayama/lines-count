@@ -40,41 +40,50 @@ $ lines-count /path/to/not-exist-file
 argument error: not exist /path/to/not-exist-file
 $ lines-count /path/to/directory
 220
-$ lines-count --extension ts,tsx,rs,yml
+$ tree
+.
+├── sample.rs
+├── sample.ts
+├── sample_one
+│   ├── sample.py
+│   └── sample.rb
+└── sample_second
+    ├── sample.py
+    ├── sample.rb
+    └── sample_third
+        └── sample.ex
+$ lines-count --extension
 {
-  "rs": 110,
-  "ts": 203,
-  "tsx": 512,
-  "yml": 21,
-  ...
+  "rs": 3,
+  "rb": 6,
+  "py": 20,
+  "txt": 1,
+  "ex": 15,
 }
 $ lines-count --level 0
 {
-  "./": 1221
+  "./": 45
 }
 $ lines-count --level 1
 {
-  "doc/": 221,
-  "src/": 230,
-  "target": 510,
-  "./": 250,
-  ...
+  "./": 4,
+  "./sample_one": 13,
+  "./sample_second": 28,
 }
 $ lines-count --level 2
 {
-  "doc/path1/": 111,
-  "doc/path2/": 110,
-  "src/": 230,
-  "./": 250
+  "./": 4,
+  "./sample_one": 13,
+  "./sample_second": 13,
+  "./sample_third": 15,
 }
 $ lines-count --level ~
 {
-  "doc/path1/path3": 111,
-  "doc/path1/path4": 111,
-  "doc/path1/path4/path5": 111,
-  "doc/path2/": 110,
-  "src/": 230,
-  "./": 250
+  "./": 4,
+  "./sample_one": 13,
+  "./sample_second": 13,
+  "./sample_third": 15,
+  "./sample_fourth": 2,
 }
 ```
 
