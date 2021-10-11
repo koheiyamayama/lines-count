@@ -2,6 +2,34 @@
 
 このコマンド `lines-count` は引数に取ったファイルの行数を数えるためのコマンドです。
 
+# install
+## Mac
+```
+$ brew update
+$ brew search lines-count
+$ brew install lines-count
+$ lines-count --version
+1.0.0
+```
+## Ubuntu
+```
+$ apt-get update
+$ apt-cache search lines-count
+$ apt-get install -y lines-count
+$ lines-count --version
+1.0.0
+```
+## From Source
+```
+$ cargo --version
+cargo 1.53.0 (4369396ce 2021-04-27)
+$ git clone https://github.com/koheiyamayama/lines-count.git
+$ cd /path/to/lines-count
+$ cargo build --release
+$ ./target/release/lines-count --version
+1.0.0
+```
+
 # getting started
 
 ```shell
