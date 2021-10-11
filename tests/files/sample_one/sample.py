@@ -1,0 +1,10 @@
+print("sample python file")
+print("sample second lines")
+print("sample fourth lines")
+print("sample fifth lines")
+
+print("sample seventh lines")
+print("include \n in method argument")
+print("include \n in method argument")
+print("include \n in method argument")
+print("include \n in method argument")
