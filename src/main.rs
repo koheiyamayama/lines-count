@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::env;
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader};
@@ -11,7 +12,8 @@ fn main() {
         let count = lines_count_file(path);
         println!("{}", count);
     } else if path.is_dir() {
-        find_entries(path);
+        let mut result = HashMap::new();
+        println!("lines: {}", find_entries(path, &mut result).values().sum::<usize>())
     }
 }
 
@@ -27,7 +29,7 @@ fn lines_count_file(path: &Path) -> usize {
     count
 }
 
-fn find_entries(path: &Path) {
+fn find_entries<'a>(path: &Path, result: &'a mut  HashMap<String, usize>) -> &'a HashMap<String, usize> {
     let entries = match fs::read_dir(path) {
         Ok(dir) => dir,
         Err(error) => panic!("error: {:?}", error),
@@ -44,9 +46,11 @@ fn find_entries(path: &Path) {
                 Some(path) => path,
                 None => panic!("can't parse path."),
             };
-            println!("{}: {}", path, count);
+            result.insert(path.to_string(), count);
         } else if path.is_dir() {
-            find_entries(&path);
+            find_entries(&path, result);
         }
     }
+
+    return result;
 }
