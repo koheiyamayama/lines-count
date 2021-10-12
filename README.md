@@ -3,22 +3,17 @@
 このコマンド `lines-count` は引数に取ったファイルの行数を数えるためのコマンドです。
 
 # install
-**まだソースコードのビルドからしか対応してません。**
 ## Mac
 ```
 $ brew update
 $ brew search lines-count
 $ brew install lines-count
-$ lines-count --version
-1.0.0
 ```
-## Ubuntu
+## Ubuntu(progress)
 ```
 $ apt-get update
 $ apt-cache search lines-count
 $ apt-get install -y lines-count
-$ lines-count --version
-1.0.0
 ```
 ## From Source
 ```
@@ -28,7 +23,6 @@ $ git clone https://github.com/koheiyamayama/lines-count.git
 $ cd /path/to/lines-count
 $ cargo build --release
 $ ./target/release/lines-count --version
-1.0.0
 ```
 
 # getting started
@@ -108,7 +102,7 @@ $ lines-count --level ~
 
 # development progress
 - [x] 1ファイルだけ行数を出力できる
-- [ ] 1ディレクトリだけ行数を出力できる
+- [x] 1ディレクトリだけ行数を出力できる
 - [ ] 拡張子ごとに行数を出力できる
 - [ ] ディレクトリごとに行数を出力できる
   - [ ] コマンドラインオプション引数に `~` を指定した場合、全ての最下層のディレクトリごとの行数を出力できる
