@@ -9,15 +9,15 @@ fn main() {
     let path = &args[1];
     let path = Path::new(path);
     if path.is_file() {
-        let count = lines_count_file(path);
+        let count = count_lines_of_file(path);
         println!("{}", count);
     } else if path.is_dir() {
         let mut result = HashMap::new();
-        println!("lines: {}", find_entries(path, &mut result).values().sum::<usize>())
+        println!("lines: {}", count_lines_of_files(path, &mut result).values().sum::<usize>())
     }
 }
 
-fn lines_count_file(path: &Path) -> usize {
+fn count_lines_of_file(path: &Path) -> usize {
     let file = match File::open(path) {
         Ok(file) => file,
         Err(e) => {
@@ -29,7 +29,7 @@ fn lines_count_file(path: &Path) -> usize {
     count
 }
 
-fn find_entries<'a>(path: &Path, result: &'a mut  HashMap<String, usize>) -> &'a HashMap<String, usize> {
+fn count_lines_of_files<'a>(path: &Path, result: &'a mut  HashMap<String, usize>) -> &'a HashMap<String, usize> {
     let entries = match fs::read_dir(path) {
         Ok(dir) => dir,
         Err(error) => panic!("error: {:?}", error),
@@ -41,14 +41,14 @@ fn find_entries<'a>(path: &Path, result: &'a mut  HashMap<String, usize>) -> &'a
         };
         let path = entry.path();
         if path.is_file() {
-            let count = lines_count_file(&path);
+            let count = count_lines_of_file(&path);
             let path = match path.as_path().to_str() {
                 Some(path) => path,
                 None => panic!("can't parse path."),
             };
             result.insert(path.to_string(), count);
         } else if path.is_dir() {
-            find_entries(&path, result);
+            count_lines_of_files(&path, result);
         }
     }
 
