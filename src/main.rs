@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate clap;
 use clap::App;
-use serde_json::{Result, Value};
+use serde_json;
 use std::collections::HashMap;
 use std::ffi::OsStr;
 use std::fs::{self, File};
