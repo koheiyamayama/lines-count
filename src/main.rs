@@ -1,7 +1,9 @@
 #[macro_use]
 extern crate clap;
 use clap::App;
+use serde_json::{Result, Value};
 use std::collections::HashMap;
+use std::ffi::OsStr;
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
@@ -16,7 +18,13 @@ fn main() {
         println!("{}", count);
     } else if path.is_dir() {
         let mut result = HashMap::new();
-        println!("lines: {}", count_lines_of_files(path, &mut result).values().sum::<usize>())
+
+        let sum = count_lines_of_files(path, &mut result)
+            .values()
+            .sum::<usize>();
+        let result_by_extension = count_lines_of_files_by_ext(&mut result);
+        let result_by_extension = serde_json::to_string_pretty(&result_by_extension).unwrap();
+        format_result(sum, result_by_extension)
     }
 }
 
@@ -32,7 +40,10 @@ fn count_lines_of_file(path: &Path) -> usize {
     count
 }
 
-fn count_lines_of_files<'a>(path: &Path, result: &'a mut  HashMap<String, usize>) -> &'a HashMap<String, usize> {
+fn count_lines_of_files<'a>(
+    path: &Path,
+    result: &'a mut HashMap<String, usize>,
+) -> &'a HashMap<String, usize> {
     let entries = match fs::read_dir(path) {
         Ok(dir) => dir,
         Err(error) => panic!("error: {:?}", error),
@@ -56,4 +67,23 @@ fn count_lines_of_files<'a>(path: &Path, result: &'a mut  HashMap<String, usize>
     }
 
     return result;
+}
+
+// フラグ管理構造体を定義し、出力を管理する
+fn format_result(sum: usize, result_by_extension: String) {
+    println!("{{sum: {}}}", sum);
+    println!("{}", result_by_extension);
+}
+
+fn count_lines_of_files_by_ext(result: &mut HashMap<String, usize>) -> HashMap<String, usize> {
+    let mut result_by_ext: HashMap<String, usize> = HashMap::new();
+    for (path, count) in result {
+        let extension = Path::new(path)
+            .extension()
+            .unwrap_or(OsStr::new("no_extension"));
+        *result_by_ext
+            .entry(String::from(extension.to_str().unwrap()))
+            .or_insert(*count) += *count;
+    }
+    return result_by_ext;
 }
