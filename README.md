@@ -6,6 +6,7 @@
 ## Mac
 ```
 $ brew update
+$ brew tap koheiyamayama/lines-count
 $ brew search lines-count
 $ brew install lines-count
 ```
@@ -103,9 +104,9 @@ $ lines-count --level ~
 # development progress
 - [x] 1ファイルだけ行数を出力できる
 - [x] 1ディレクトリだけ行数を出力できる
-- [ ] 拡張子ごとに行数を出力できる
+- [x] 拡張子ごとに行数を出力できる
 - [ ] ディレクトリごとに行数を出力できる
   - [ ] コマンドラインオプション引数に `~` を指定した場合、全ての最下層のディレクトリごとの行数を出力できる
   - [ ] コマンドラインオプション引数に `数字` を指定した場合、その階層までのディレクトリごとの行数を出力できる
-- [ ] --versionオプションを実行できる
-- [ ] --helpオプションを実行できる
+- [x] --versionオプションを実行できる
+- [x] --helpオプションを実行できる
