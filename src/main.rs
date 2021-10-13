@@ -1,13 +1,16 @@
+#[macro_use]
+extern crate clap;
+use clap::App;
 use std::collections::HashMap;
-use std::env;
 use std::fs::{self, File};
 use std::io::{BufRead, BufReader};
 use std::path::Path;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let path = &args[1];
-    let path = Path::new(path);
+    let yaml = load_yaml!("../cli.yml");
+    let matches = App::from_yaml(yaml).get_matches();
+    let input = matches.value_of("INPUT").unwrap();
+    let path = Path::new(input);
     if path.is_file() {
         let count = count_lines_of_file(path);
         println!("{}", count);

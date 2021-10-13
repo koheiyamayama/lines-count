@@ -1,0 +1,13 @@
+name: lines-count
+version: "0.0.1"
+author: 'kohei yamaguchi <kohei.y.23@gmail.com>'
+about: Counts the number of lines in any file or directory.
+args:
+  - INPUT:
+      help: Sets the input file or directory path.
+      required: true
+      index: 1
+  - extensions:
+      multiple: false
+      help: Counts the number of lines in a file by extension.
+      takes_value: false
